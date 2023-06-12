@@ -1,0 +1,14 @@
+<!-- This is how for loop works in Django template Language. Standard syntax doesn't work. -->
+
+{% for item in item_list %} <!--item_list is the context sent to this template-->
+    
+    <ul>
+        <li>            
+            {% comment %} <a href="/food/{{item.id}}">{{item.id}} -- {{item.item_name}}</a> #This is hard URL and not a goodpractice to use it. {% endcomment %}
+
+<!--Below, food is app name and 'detail' is the view name from urls.py. item.id is a unique ID/primary key automatically given by django-->
+<!--app name is mentioned so that if there is another url pattern named detail in a different app, django knows which app to route to-->
+            <a href="{% url 'food:detail' item.id %}"> {{item.id}} -- {{item.item_name}}</a> 
+        </li>
+    </ul>
+{% endfor %}
