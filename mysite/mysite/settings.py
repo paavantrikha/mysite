@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+# Manually Added
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Added
     'food.apps.FoodConfig',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -123,3 +126,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# ADDED MANUALLY
+
+LOGIN_REDIRECT_URL = 'food:index' # To redirect user to this page when he logs in
+LOGIN_URL = 'login' # Django by default has login path "/accounts/login/". This is to change it.
+MEDIA_ROOT = os.path.join(BASE_DIR, 'pictures') # To change the path where profile pictures are stored.
+MEDIA_URL = '/pictures/' # To give path where the media of the app lies.

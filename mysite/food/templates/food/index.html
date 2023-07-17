@@ -1,14 +1,51 @@
-<!-- This is how for loop works in Django template Language. Standard syntax doesn't work. -->
 
-{% for item in item_list %} <!--item_list is the context sent to this template-->
+{% extends 'food/base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     
-    <ul>
-        <li>            
-            {% comment %} <a href="/food/{{item.id}}">{{item.id}} -- {{item.item_name}}</a> #This is hard URL and not a goodpractice to use it. {% endcomment %}
+</head>
+<body>
+    {% block body %} <!-- Body of the block starts from here -->
+
+    {% for item in item_list %} <!--item_list is the context sent to this template-->
+
+        <div class="row"> <!-- Creating a row division -->
+            <div class="col-md-3 offset-md-2"> <!-- Creating 3 columns in the row. offset means leave 1st 2 columns blank. Bootstrap has 12 columns. -->
+                <img class="card-img-top" height="150px" src="{{ item.item_image }}"/>
+            </div>
+            <div class="col-md-4">
+                <h3>{{ item.item_name }}</h3>
+                <h5>{{ item.item_desc }}</h5>
+                <h6>${{ item.item_price }}</h6>
+            </div>
+            <div class="col-md-2">
+                <a href="{% url 'food:detail' item.id %}" class="btn btn-success">Details</a>
+            </div>
+        </div>
+
+    {% endfor %}
+
+    {% endblock %} <!-- Body of the block ends here -->
+
+<!-- Below is old code -->
+<!-- This is how for loop works in Django template Language. Standard syntax doesn't work. -->
+    {% comment %} {% for item in item_list %} <!--item_list is the context sent to this template-->
+    
+        <ul>
+            <li>             {% endcomment %}
+                {% comment %} <a href="/food/{{item.id}}">{{item.id}} -- {{item.item_name}}</a> #This is hard URL and not a goodpractice to use it. {% endcomment %}
 
 <!--Below, food is app name and 'detail' is the view name from urls.py. item.id is a unique ID/primary key automatically given by django-->
 <!--app name is mentioned so that if there is another url pattern named detail in a different app, django knows which app to route to-->
-            <a href="{% url 'food:detail' item.id %}"> {{item.id}} -- {{item.item_name}}</a> 
-        </li>
-    </ul>
-{% endfor %}
+                {% comment %} <a href="{% url 'food:detail' item.id %}"> {{item.id}} -- {{item.item_name}}</a> 
+            </li>
+        </ul>
+    {% endfor %}
+
+    {% endblock %} <!-- Body of the block ends here --> {% endcomment %}
+</body>
+</html>

@@ -1,0 +1,11 @@
+{% extends 'food/base.html' %}
+
+{% block body %}
+
+<form method="POST">
+    {% csrf_token %} <!-- CSRF token tag used for security. Prevents cross-site scripting -->
+    {{form}} <!--It is a context passed from a view-->
+    <button type="submit">Save</button>
+</form>
+
+{% endblock %}

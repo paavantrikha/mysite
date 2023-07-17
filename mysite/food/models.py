@@ -10,3 +10,4 @@ class Item(models.Model):
     item_name = models.CharField(max_length=200)
     item_desc = models.CharField(max_length=200)
     item_price = models.IntegerField()
+    item_image = models.CharField(max_length=500, default="https://members.jusbfit247.com/wp-content/uploads/food-placeholder.jpg")

@@ -15,8 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from users import views as user_views # Another way to include all views in users app. as user_views is to give our own name to the view. It can be changed.
+from django.contrib.auth import views as authentication_views # For authentication. authentication_views is name given by us.
+from django.conf import settings
+from django.conf.urls.static import static # To upload static files(From server and not database) for eg- profile pictures
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('food/', include('food.urls')),
+    path('register/', user_views.register, name='register'), #Another way of creating urls
+# login/ doesn't take to the desired page after logging in and throws error. For this, add "LOGIN_REDIRECT_URL = 'food:index' " in settings.py
+    path('login/', authentication_views.LoginView.as_view(template_name='users/login.html'), name='login'), #as_view() is used when using class based views.
+    path('logout/', authentication_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'), #login/logout template path is given in template_name as by default, the path is different in django('registration/login.html')
+    path('profile/', user_views.profilepage, name='profile'),
 ]
+
+urlpatterns += [ # To upload static files(From server and not database) for eg- profile pictures
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
